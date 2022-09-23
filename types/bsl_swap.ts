@@ -42,6 +42,47 @@ export type BslSwap = {
           "isSigner": false
         },
         {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "offeree",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "swapStateBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initializeEscrow",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "escrow",
           "isMut": true,
           "isSigner": false
@@ -78,10 +119,6 @@ export type BslSwap = {
         }
       ],
       "args": [
-        {
-          "name": "swapStateBump",
-          "type": "u8"
-        },
         {
           "name": "escrowBump",
           "type": "u8"
@@ -261,11 +298,6 @@ export type BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "escrow",
           "isMut": false,
           "isSigner": false
         },
@@ -438,6 +470,47 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "offeree",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "swapStateBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initializeEscrow",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "escrow",
           "isMut": true,
           "isSigner": false
@@ -474,10 +547,6 @@ export const IDL: BslSwap = {
         }
       ],
       "args": [
-        {
-          "name": "swapStateBump",
-          "type": "u8"
-        },
         {
           "name": "escrowBump",
           "type": "u8"
@@ -657,11 +726,6 @@ export const IDL: BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "escrow",
           "isMut": false,
           "isSigner": false
         },

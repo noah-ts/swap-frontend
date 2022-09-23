@@ -67,7 +67,8 @@ export const customGetOrCreateAssociatedTokenAccount = async (
                 // Now this should always succeed
                 account = await getAccount(connection, associatedToken, commitment, programId)
             } else {
-                throw error
+                console.error(error)
+                return
             }
         }
     

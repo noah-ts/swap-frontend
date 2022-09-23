@@ -53,7 +53,8 @@ class SwapStore {
 
     get nftsByCollection(): NftsByCollectionType {
         const obj: Record<string, NftType[]> = {}
-        this.nfts.map(nft => {
+        this.nfts.forEach(nft => {
+            if (!nft.collectionAddress) return
             const collection = obj[nft.collectionAddress]
             if (collection) {
                 obj[nft.collectionAddress].push(nft)
@@ -66,7 +67,8 @@ class SwapStore {
 
     get offerorNftsByCollection(): NftsByCollectionType {
         const obj: Record<string, NftType[]> = {}
-        this.offerorNfts.map(nft => {
+        this.offerorNfts.forEach(nft => {
+            if (!nft.collectionAddress) return
             const collection = obj[nft.collectionAddress]
             if (collection) {
                 obj[nft.collectionAddress].push(nft)

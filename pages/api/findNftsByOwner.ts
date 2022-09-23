@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const resp = await fetch(`https://api.helius.xyz/v0/addresses/${owner}/nfts?api-key=${API_KEY}`)
     if (resp.status !== 200) {
-        res.status(400).json({ message: 'Helius error' })
+        res.status(400).json({ message: 'Error fetching nfts, please try again.' })
         return
     }
     const data = await resp.json()

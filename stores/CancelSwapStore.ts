@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from 'mobx'
+import { makeObservable, observable, action, runInAction } from 'mobx'
 import { Wallet } from '@project-serum/anchor'
 import { PublicKey, Connection } from '@solana/web3.js'
 import { NftType } from '../types/NftType'
@@ -22,10 +22,10 @@ class CancelSwapStore {
         })
     }
 
-    loadSwapState = async (connection: Connection, wallet: Wallet, offereePubKey: PublicKey) => {
+    loadSwapState = async (connection: Connection, wallet: Wallet, offerorPubKey: PublicKey, offereePubKey: PublicKey) => {
         const program = getAnchorProgram(connection, wallet as any)
         const [swapState] = await PublicKey.findProgramAddress(
-            [Buffer.from('swap_state'), wallet.publicKey.toBuffer(), offereePubKey.toBuffer()], programId
+            [Buffer.from('swap_state'), offerorPubKey.toBuffer(), offereePubKey.toBuffer()], programId
         )
         this.swapStatePubKey = swapState
         const swapStatePda = await program.account.swapState.fetchNullable(swapState)
@@ -47,18 +47,20 @@ class CancelSwapStore {
             if (res.status !== 200) {
                 console.error(data.message || 'Error loading mints')
             } else {
-                const offerorNft = data.data[0]
-                this.offerorNft = {
-                    tokenAddress: offerorNft.mint,
-                    imageUrl: offerorNft.offChainData.image,
-                    name: offerorNft.offChainData.name
-                }
-                const offereeNft = data.data[1]
-                this.offereeNft = {
-                    tokenAddress: offereeNft.mint,
-                    imageUrl: offereeNft.offChainData.image,
-                    name: offereeNft.offChainData.name
-                }
+                runInAction(() => {
+                    const offerorNft = data.data[0]
+                    this.offerorNft = {
+                        tokenAddress: offerorNft?.mint,
+                        imageUrl: offerorNft?.offChainData?.image,
+                        name: offerorNft?.offChainData?.name
+                    }
+                    const offereeNft = data.data[1]
+                    this.offereeNft = {
+                        tokenAddress: offereeNft?.mint,
+                        imageUrl: offereeNft?.offChainData?.image,
+                        name: offereeNft?.offChainData?.name
+                    }
+                })
             }
         } catch (error) {
             console.error(error)

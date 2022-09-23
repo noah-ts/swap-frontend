@@ -1,13 +1,15 @@
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { observer } from 'mobx-react-lite'
 import { PublicKey, Transaction } from '@solana/web3.js'
+import { getAssociatedTokenAddress } from '@solana/spl-token'
 import { Layout } from '../components/Layout'
 import { swapStore } from '../stores/SwapStore'
 import { NftsGrid } from '../components/NftCard'
-import { initializeSwapStateTransaction, initializeUserStateInstruction, initiateSwapInstruction } from '../services/transactions'
-import { customGetOrCreateAssociatedTokenAccount, getAnchorProgram, programId } from '../services/utils'
+import { initializeEscrowInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapTransaction } from '../services/transactions'
+import { getAnchorProgram, programId } from '../services/utils'
 import { useState } from 'react'
 import { CheckIcon } from './icons/CheckIcon'
+import { ArrowLeftIcon } from './icons/ArrowLeftIcon'
 
 const Spinner = () => (
     <div className="flex items-center justify-center ">
@@ -32,17 +34,7 @@ export const SwapStepThree = observer(() => {
         const offereePubKey = new PublicKey(swapStore.loadedNftsWalletAddress)
         const mintAssetA = new PublicKey(swapStore.offerorSelectedNft?.tokenAddress)
         const mintAssetB = new PublicKey(swapStore.selectedNft?.tokenAddress)
-        const ataOfferorAssetAAccount = await customGetOrCreateAssociatedTokenAccount(
-            connection,
-            wallet.publicKey,
-            mintAssetA,
-            wallet.publicKey,
-            wallet.sendTransaction,
-            false,
-            'finalized'
-        )
-        if (!ataOfferorAssetAAccount) return
-        const ataOfferorAssetA = ataOfferorAssetAAccount.address
+        const ataOfferorAssetA = await getAssociatedTokenAddress(mintAssetA, wallet.publicKey)
 
         const [offerorPdaState, offerorPdaBump] = await PublicKey.findProgramAddress(
             [Buffer.from('user_state'), wallet.publicKey.toBuffer()], programId
@@ -54,7 +46,7 @@ export const SwapStepThree = observer(() => {
             [Buffer.from('swap_state'), wallet.publicKey.toBuffer(), offereePubKey.toBuffer()], programId
         )
         const [escrow, escrowBump] = await PublicKey.findProgramAddress(
-            [Buffer.from('escrow'), wallet.publicKey.toBuffer(), offereePubKey.toBuffer()], programId
+            [Buffer.from('escrow'), wallet.publicKey.toBuffer(), mintAssetA.toBuffer()], programId
         )
 
         const txn = new Transaction()
@@ -74,20 +66,28 @@ export const SwapStepThree = observer(() => {
 
         const swapStatePda = await program.account.swapState.fetchNullable(swapState)
         if (!swapStatePda) {
-            txn.add(await initializeSwapStateTransaction({
+            txn.add(await initializeSwapStateInstruction({
                 connection,
                 wallet: wallet as any,
                 swapState,
                 swapBump,
-                escrow,
-                escrowBump,
-                mintAssetA,
                 offeror: wallet.publicKey,
                 offeree: offereePubKey
             }))
         }
 
-        txn.add(await initiateSwapInstruction({
+        txn.add(await initializeEscrowInstruction({
+            connection,
+            wallet: wallet as any,
+            swapState,
+            escrow,
+            escrowBump,
+            mintAssetA,
+            offeror: wallet.publicKey,
+            offeree: offereePubKey
+        }))
+
+        txn.add(await initiateSwapTransaction({
             connection,
             wallet: wallet as any,
             swapState,
@@ -108,14 +108,21 @@ export const SwapStepThree = observer(() => {
         }
     }
 
+    const goToPrevStep = () => swapStore.setStep('two')
+
     if (loadingStatus === 'finished') {
-        return <div className='h-screen flex flex-col items-center'>
+        return <div className='flex flex-col items-center'>
             <CheckIcon />
             <div className='text-lg'>Success, now wait for counter party to accept the swap.</div>
         </div>
     }
 
     return <div>
+        <div>
+            <button onClick={goToPrevStep} className='flex gap-2 bg-gray-200 hover:bg-gray-300 rounded p-4'>
+                <ArrowLeftIcon /> Back
+            </button>
+        </div>
         <div className='flex flex-col gap-2'>
             {swapStore.offerorSelectedNft && (
                 <div className='mt-10'>

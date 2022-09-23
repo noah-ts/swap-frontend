@@ -5,6 +5,7 @@ import { Layout } from '../components/Layout'
 import { swapStore } from '../stores/SwapStore'
 import { NftsByCollection, NftsGrid } from '../components/NftCard'
 import { Skeleton } from '../components/Skeleton'
+import { ArrowLeftIcon } from './icons/ArrowLeftIcon'
 
 export const SwapStepTwo = observer(() => {
     const { publicKey } = useWallet()
@@ -12,6 +13,7 @@ export const SwapStepTwo = observer(() => {
 
     const loadData = () => swapStore.loadOfferorNfts(publicKey.toString())
 
+    const goToPrevStep = () => swapStore.setStep('one')
     const goToNextStep = () => swapStore.setStep('three')
 
     useEffect(() => {
@@ -21,11 +23,16 @@ export const SwapStepTwo = observer(() => {
 
     return <div>
         <div className='flex flex-col gap-2'>
+            <div>
+                <button onClick={goToPrevStep} className='flex gap-2 bg-gray-200 hover:bg-gray-300 rounded p-4'>
+                    <ArrowLeftIcon /> Back
+                </button>
+            </div>
             {swapStore.offerorErrorLoadingNfts && (
                 <div>
                     <div className='text-red-500'>{swapStore.offerorErrorLoadingNfts}</div>
                     <button
-                        className='bg-zinc-900 hover:bg-zinc-700 text-green-100 rounded py-2 mt-6'
+                        className='bg-zinc-900 hover:bg-zinc-700 text-green-100 rounded p-2 mt-6'
                         onClick={loadData}
                     >
                         Try again

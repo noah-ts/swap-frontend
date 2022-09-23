@@ -81,6 +81,6 @@ export const Layout: FC<{children: ReactNode}> = ({ children }) => {
                 <MenuIcon open={open} />
             </div>
         </header>
-        <main className='h-max w-full lg:inline-block px-6 py-2 md:p-10'>{children}</main>
+        <main className='min-h-screen max-h-full w-full lg:inline-block px-6 py-2 md:p-10'>{children}</main>
     </div>
 }

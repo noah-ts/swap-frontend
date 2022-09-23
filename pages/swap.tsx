@@ -27,14 +27,11 @@ const Swap = observer(() => {
     }
 
     if (swapStore.userState?.userEnum === 'offeror') {
-        return <CancelSwap />
+        return <CancelSwap type='cancel' />
     }
 
     if (swapStore.userState?.userEnum === 'offeree') {
-        return <Layout>
-            <h1 className='text-2xl mb-6'>Swap NFT</h1>
-            <div>Accept swap</div>
-        </Layout>
+        return <CancelSwap type='accept' />
     }
 
     return <Layout>

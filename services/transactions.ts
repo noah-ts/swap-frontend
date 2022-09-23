@@ -34,30 +34,45 @@ export const initializeUserStateInstruction = ({
         .instruction()
 }
 
-type InitializeSwapStateTransactionParams = ProviderParams & CommonParams & {
+type InitializeSwapStateInstructionParams = ProviderParams & {
     swapBump: number
+    swapState: PublicKey
+    offeror: PublicKey
+    offeree: PublicKey
+}
+
+export const initializeSwapStateInstruction = ({
+    connection, wallet, swapBump, swapState, offeror, offeree
+}: InitializeSwapStateInstructionParams) => {
+    const program = getAnchorProgram(connection, wallet)
+    return program.methods.initializeSwapState(swapBump)
+        .accounts({ swapState, offeror, offeree, systemProgram: SystemProgram.programId, tokenProgram: TOKEN_PROGRAM_ID, rent: SYSVAR_RENT_PUBKEY })
+        .instruction()
+}
+
+type InitializeEscrowInstructionParams = ProviderParams & CommonParams & {
     escrowBump: number
 }
 
-export const initializeSwapStateTransaction = ({
-    connection, wallet, swapBump, escrowBump, swapState, escrow, mintAssetA, offeror, offeree
-}: InitializeSwapStateTransactionParams) => {
+export const initializeEscrowInstruction = ({
+    connection, wallet, escrowBump, swapState, escrow, mintAssetA, offeror, offeree
+}: InitializeEscrowInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
-    return program.methods.initializeSwapState(swapBump, escrowBump)
+    return program.methods.initializeEscrow(escrowBump)
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, systemProgram: SystemProgram.programId, tokenProgram: TOKEN_PROGRAM_ID, rent: SYSVAR_RENT_PUBKEY })
-        .transaction()
+        .instruction()
 }
 
-type InitiateSwapInstructionParams = ProviderParams & CommonParams & {
+type InitiateSwapTransactionParams = ProviderParams & CommonParams & {
     mintAssetB: PublicKey
     ataOfferorAssetA: PublicKey
     offerorState: PublicKey
     offereeState: PublicKey
 }
 
-export const initiateSwapInstruction = async ({
+export const initiateSwapTransaction = async ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState
-}: InitiateSwapInstructionParams) => {
+}: InitiateSwapTransactionParams) => {
     const program = getAnchorProgram(connection, wallet)
     const transaction = await program.methods.initiateSwap()
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState, tokenProgram: TOKEN_PROGRAM_ID })
@@ -72,7 +87,7 @@ export const initiateSwapInstruction = async ({
     return transaction
 }
 
-type CancelSwapTransactionParams = InitiateSwapInstructionParams
+type CancelSwapTransactionParams = InitiateSwapTransactionParams
 
 export const cancelSwapTransaction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState
@@ -110,7 +125,7 @@ const acceptSwapTwoTransaction = ({
 }: AcceptSwapTwoInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
     return program.methods.acceptSwapTwo()
-        .accounts({ swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetB, ataOffereeAssetB, tokenProgram: TOKEN_PROGRAM_ID })
+        .accounts({ swapState, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetB, ataOffereeAssetB, tokenProgram: TOKEN_PROGRAM_ID })
         .instruction()
 }
 

@@ -47,10 +47,13 @@ export const SwapStepOne = observer(() => {
                     Load NFTs
                 </button>
             </form>
+            <div className='bg-yellow-100 rounded p-4 mt-4'>
+                <div>Please double check the nft you swap for, make sure it is not a scam.</div>
+                <div>Fee is 0.01 SOL.</div>
+            </div>
             {swapStore.errorLoadingNfts && (
                 <div className='text-red-500'>{swapStore.errorLoadingNfts}</div>
             )}
-            {!swapStore.loadedNftsWalletAddress && !swapStore.isNftsLoading && <div className='h-screen'></div>}
             {swapStore.isNftsLoading && <Skeleton />}
             {swapStore.loadedNftsWalletAddress && !swapStore.errorLoadingNfts && (
                 <div className='mt-10 mb-4 text-sm md:text-base'>{swapStore.loadedNftsWalletAddress}</div>

@@ -17,6 +17,7 @@ export const SwapStepTwo = observer(() => {
     const goToNextStep = () => swapStore.setStep('three')
 
     useEffect(() => {
+        if (swapStore.offerorNfts.length > 0) return
         loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

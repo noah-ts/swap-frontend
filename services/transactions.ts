@@ -47,7 +47,7 @@ export const initializeSwapStateInstruction = ({
     const program = getAnchorProgram(connection, wallet)
     return program.methods.initializeSwapState(swapBump)
         .accounts({ swapState, offeror, offeree, systemProgram: SystemProgram.programId, tokenProgram: TOKEN_PROGRAM_ID, rent: SYSVAR_RENT_PUBKEY })
-        .transaction()
+        .instruction()
 }
 
 type InitializeEscrowInstructionParams = ProviderParams & CommonParams & {
@@ -60,7 +60,7 @@ export const initializeEscrowInstruction = ({
     const program = getAnchorProgram(connection, wallet)
     return program.methods.initializeEscrow(escrowBump)
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, systemProgram: SystemProgram.programId, tokenProgram: TOKEN_PROGRAM_ID, rent: SYSVAR_RENT_PUBKEY })
-        .transaction()
+        .instruction()
 }
 
 type InitiateSwapTransactionParams = ProviderParams & CommonParams & {

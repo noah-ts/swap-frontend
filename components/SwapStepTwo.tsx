@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { observer } from 'mobx-react-lite'
-import { Layout } from '../components/Layout'
 import { swapStore } from '../stores/SwapStore'
 import { NftsByCollection, NftsGrid } from '../components/NftCard'
 import { Skeleton } from '../components/Skeleton'
@@ -9,7 +8,7 @@ import { ArrowLeftIcon } from './icons/ArrowLeftIcon'
 
 export const SwapStepTwo = observer(() => {
     const { publicKey } = useWallet()
-    if (!publicKey) return <Layout><></></Layout>
+    if (!publicKey) return <></>
 
     const loadData = () => swapStore.loadOfferorNfts(publicKey.toString())
 

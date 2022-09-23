@@ -2,7 +2,6 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { observer } from 'mobx-react-lite'
 import { PublicKey, Transaction } from '@solana/web3.js'
 import { getAssociatedTokenAddress } from '@solana/spl-token'
-import { Layout } from '../components/Layout'
 import { swapStore } from '../stores/SwapStore'
 import { NftsGrid } from '../components/NftCard'
 import { initializeEscrowInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapTransaction } from '../services/transactions'
@@ -23,7 +22,7 @@ export const SwapStepThree = observer(() => {
 
     const [loadingStatus, setLoadingStatus] = useState<'idle' | 'loading' | 'finished' | 'failed'>('idle')
 
-    if (!wallet.publicKey) return <Layout><></></Layout>
+    if (!wallet.publicKey) return <></>
 
     const initiateSwap = async () => {
         if (!wallet || !wallet.publicKey || !swapStore.offerorSelectedNft?.tokenAddress || !swapStore.selectedNft?.tokenAddress) return
@@ -114,6 +113,7 @@ export const SwapStepThree = observer(() => {
         return <div className='flex flex-col items-center'>
             <CheckIcon />
             <div className='text-lg'>Success, now wait for counter party to accept the swap.</div>
+            <div className='text-lg'>Or refresh to cancel the swap.</div>
         </div>
     }
 

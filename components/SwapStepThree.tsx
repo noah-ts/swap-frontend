@@ -4,7 +4,7 @@ import { PublicKey, Transaction } from '@solana/web3.js'
 import { getAssociatedTokenAddress } from '@solana/spl-token'
 import { swapStore } from '../stores/SwapStore'
 import { NftsGrid } from '../components/NftCard'
-import { initializeEscrowInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapTransaction } from '../services/instructions'
+import { initializeEscrowInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapInstruction } from '../services/instructions'
 import { getAnchorProgram, programId } from '../services/utils'
 import { useState } from 'react'
 import { CheckIcon } from './icons/CheckIcon'
@@ -86,7 +86,7 @@ export const SwapStepThree = observer(() => {
             offeree: offereePubKey
         }))
 
-        txn.add(await initiateSwapTransaction({
+        txn.add(await initiateSwapInstruction({
             connection,
             wallet: wallet as any,
             swapState,

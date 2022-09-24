@@ -74,19 +74,21 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
 
             const ataOfferorAssetA = await getAssociatedTokenAddress(cancelSwapStore.swapState.mintAssetA, wallet.publicKey)
 
-            const txn = await cancelSwapInstruction({
-                connection,
-                wallet: wallet as any,
-                swapState: cancelSwapStore.swapStatePubKey,
-                escrow,
-                mintAssetA: cancelSwapStore.swapState.mintAssetA,
-                offeror: wallet.publicKey,
-                offeree: offereePubKey,
-                mintAssetB: cancelSwapStore.swapState.mintAssetB,
-                offerorState,
-                offereeState,
-                ataOfferorAssetA
-            })
+            const txn = new Transaction().add(
+                await cancelSwapInstruction({
+                    connection,
+                    wallet: wallet as any,
+                    swapState: cancelSwapStore.swapStatePubKey,
+                    escrow,
+                    mintAssetA: cancelSwapStore.swapState.mintAssetA,
+                    offeror: wallet.publicKey,
+                    offeree: offereePubKey,
+                    mintAssetB: cancelSwapStore.swapState.mintAssetB,
+                    offerorState,
+                    offereeState,
+                    ataOfferorAssetA
+                })
+            )
             await wallet.sendTransaction(txn, connection)
             setLoadingStatus('finished')
         } catch (error) {

@@ -70,7 +70,7 @@ type InitiateSwapInstructionParams = ProviderParams & CommonParams & {
     offereeState: PublicKey
 }
 
-export const initiateSwapTransaction = ({
+export const initiateSwapInstruction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState
 }: InitiateSwapInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
@@ -87,7 +87,7 @@ export const cancelSwapInstruction = ({
     const program = getAnchorProgram(connection, wallet)
     return program.methods.cancelSwap()
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState, tokenProgram: TOKEN_PROGRAM_ID })
-        .transaction()
+        .instruction()
 }
 
 type AcceptSwapOneInstructionParams = ProviderParams & CommonParams & {

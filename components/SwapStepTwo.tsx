@@ -40,7 +40,7 @@ export const SwapStepTwo = observer(() => {
                 </div>
             )}
             {swapStore.offerorIsNftsLoading && <Skeleton />}
-            {!swapStore.offerorErrorLoadingNfts && (
+            {!swapStore.offerorErrorLoadingNfts && !swapStore.offerorIsNftsLoading && (
                 <div>
                     <div className='mt-10 text-sm md:text-base'>{publicKey.toString()}</div>
                     <div>Choose your NFT</div>

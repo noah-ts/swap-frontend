@@ -63,35 +63,27 @@ export const initializeEscrowInstruction = ({
         .instruction()
 }
 
-type InitiateSwapTransactionParams = ProviderParams & CommonParams & {
+type InitiateSwapInstructionParams = ProviderParams & CommonParams & {
     mintAssetB: PublicKey
     ataOfferorAssetA: PublicKey
     offerorState: PublicKey
     offereeState: PublicKey
 }
 
-export const initiateSwapTransaction = async ({
+export const initiateSwapTransaction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState
-}: InitiateSwapTransactionParams) => {
+}: InitiateSwapInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
-    const transaction = await program.methods.initiateSwap()
+    return program.methods.initiateSwap()
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState, tokenProgram: TOKEN_PROGRAM_ID })
-        .transaction()
-    transaction.add(
-        SystemProgram.transfer({
-            fromPubkey: offeror,
-            toPubkey: paymentWallet,
-            lamports: 0.01 * LAMPORTS_PER_SOL
-        })
-    )
-    return transaction
+        .instruction()
 }
 
-type CancelSwapTransactionParams = InitiateSwapTransactionParams
+type CancelSwapInstructionParams = InitiateSwapInstructionParams
 
-export const cancelSwapTransaction = ({
+export const cancelSwapInstruction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState
-}: CancelSwapTransactionParams) => {
+}: CancelSwapInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
     return program.methods.cancelSwap()
         .accounts({ swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetA, offerorState, offereeState, tokenProgram: TOKEN_PROGRAM_ID })
@@ -105,7 +97,7 @@ type AcceptSwapOneInstructionParams = ProviderParams & CommonParams & {
     offereeState: PublicKey
 }
 
-const acceptSwapOneTransaction = ({
+const acceptSwapOneInstruction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOffereeAssetA, offerorState, offereeState
 }: AcceptSwapOneInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
@@ -120,7 +112,7 @@ type AcceptSwapTwoInstructionParams = ProviderParams & CommonParams & {
     ataOffereeAssetB: PublicKey
 }
 
-const acceptSwapTwoTransaction = ({
+const acceptSwapTwoInstruction = ({
     connection, wallet, swapState, escrow, mintAssetA, offeror, offeree, mintAssetB, ataOfferorAssetB, ataOffereeAssetB
 }: AcceptSwapTwoInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
@@ -133,7 +125,7 @@ type AcceptSwapTransactionParams = AcceptSwapOneInstructionParams & AcceptSwapTw
 
 export const acceptSwapTransaction = async (params: AcceptSwapTransactionParams) => {
     const transaction = new Transaction()
-    transaction.add(await acceptSwapOneTransaction(params))
-    transaction.add(await acceptSwapTwoTransaction(params))
+    transaction.add(await acceptSwapOneInstruction(params))
+    transaction.add(await acceptSwapTwoInstruction(params))
     return transaction
 }

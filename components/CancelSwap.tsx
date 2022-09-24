@@ -7,7 +7,7 @@ import { FC, useEffect, useState } from 'react'
 import { LoadingStatusType } from '../types/LoadingStatusType'
 import { programId } from '../services/utils'
 import { swapStore } from '../stores/SwapStore'
-import { acceptSwapTransaction, cancelSwapTransaction } from '../services/transactions'
+import { acceptSwapTransaction, cancelSwapInstruction } from '../services/instructions'
 import { cancelSwapStore } from '../stores/CancelSwapStore'
 import { NftsGrid } from './NftCard'
 import { CheckIcon } from './icons/CheckIcon'
@@ -74,7 +74,7 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
 
             const ataOfferorAssetA = await getAssociatedTokenAddress(cancelSwapStore.swapState.mintAssetA, wallet.publicKey)
 
-            const txn = await cancelSwapTransaction({
+            const txn = await cancelSwapInstruction({
                 connection,
                 wallet: wallet as any,
                 swapState: cancelSwapStore.swapStatePubKey,

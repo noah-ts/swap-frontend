@@ -2,6 +2,7 @@ import React, { FC, ReactNode, useMemo } from 'react'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom'
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare'
+import { SolletWalletAdapter } from '@solana/wallet-adapter-sollet'
 import {
     WalletModalProvider
 } from '@solana/wallet-adapter-react-ui'
@@ -19,7 +20,8 @@ export const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
     const wallets = useMemo(
         () => [
             new PhantomWalletAdapter(),
-            new SolflareWalletAdapter()
+            new SolflareWalletAdapter(),
+            new SolletWalletAdapter()
         ],
         []
     )

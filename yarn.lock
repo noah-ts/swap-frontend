@@ -206,6 +206,14 @@
     bs58 "^4.0.1"
     eventemitter3 "^4.0.4"
 
+"@project-serum/sol-wallet-adapter@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@project-serum/sol-wallet-adapter/-/sol-wallet-adapter-0.2.6.tgz#b4cd25a566294354427c97c26d716112b91a0107"
+  integrity sha512-cpIb13aWPW8y4KzkZAPDgw+Kb+DXjCC6rZoH74MGm3I/6e/zKyGnfAuW5olb2zxonFqsYgnv7ev8MQnvSgJ3/g==
+  dependencies:
+    bs58 "^4.0.1"
+    eventemitter3 "^4.0.7"
+
 "@rushstack/eslint-patch@^1.1.3":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
@@ -228,7 +236,7 @@
   dependencies:
     buffer "~6.0.3"
 
-"@solana/spl-token@^0.3.5":
+"@solana/spl-token@^0.3.4":
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/@solana/spl-token/-/spl-token-0.3.5.tgz#cabf9f92d755589420b46e457b9b10a879e755aa"
   integrity sha512-0bGC6n415lGjKu02gkLOIpP1wzndSP0SHwN9PefJ+wKAhmfU1rl3AV1Pa41uap2kzSCD6F9642ngNO8KXPvh/g==
@@ -237,21 +245,21 @@
     "@solana/buffer-layout-utils" "^0.2.0"
     buffer "^6.0.3"
 
-"@solana/wallet-adapter-base@^0.9.17":
+"@solana/wallet-adapter-base@^0.9.16", "@solana/wallet-adapter-base@^0.9.17":
   version "0.9.17"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-base/-/wallet-adapter-base-0.9.17.tgz#b388fea0ec6da40e23342068a4cfa9be65dc8f63"
   integrity sha512-YEkO04QndfRXb6psznMuRsw2YBHqVGxmuJgQskCHp2DAkHWPDNbKlv+Q4mOD2gfkUNHUMP8sTnwORhsIR3fQjQ==
   dependencies:
     eventemitter3 "^4.0.0"
 
-"@solana/wallet-adapter-phantom@^0.9.16":
+"@solana/wallet-adapter-phantom@^0.9.15":
   version "0.9.16"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-phantom/-/wallet-adapter-phantom-0.9.16.tgz#a459eeca2a8ece756199e0aef8e70ccaa70f670a"
   integrity sha512-AJmTmiE74G08XhPWfwJegP2mgLMLFSnvr/NfSS6ScMskHfTg01BEGApGwGdic2gKUgPRInDQgqgCToCOIxnsRA==
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.17"
 
-"@solana/wallet-adapter-react-ui@^0.9.17":
+"@solana/wallet-adapter-react-ui@^0.9.16":
   version "0.9.17"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-react-ui/-/wallet-adapter-react-ui-0.9.17.tgz#63f1472965dfa8315e2c4814e8b8fc9811b16b62"
   integrity sha512-KAbxH4MFc/rD/X/ts6jQ+IXeOS9SDXXI4eUkZgkE4wwsn368ssTlGU+PjOIAWmD0y1sn1MoUb9qfheyUTqHHmg==
@@ -259,14 +267,14 @@
     "@solana/wallet-adapter-base" "^0.9.17"
     "@solana/wallet-adapter-react" "^0.15.19"
 
-"@solana/wallet-adapter-react@^0.15.19":
+"@solana/wallet-adapter-react@^0.15.18", "@solana/wallet-adapter-react@^0.15.19":
   version "0.15.19"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-react/-/wallet-adapter-react-0.15.19.tgz#fa8f420ec6b6b7339ccd8e72bc17146f53df3d5b"
   integrity sha512-8MEiirK1Fp7apMGFQU6OMZBvppjHwr0uwzE3iYDlG7gPkMPVVR0pruy2oeexSN0fw+S7gnorZJehgOGbptyHHA==
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.17"
 
-"@solana/wallet-adapter-solflare@^0.6.16":
+"@solana/wallet-adapter-solflare@^0.6.15":
   version "0.6.16"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-solflare/-/wallet-adapter-solflare-0.6.16.tgz#25604ac040d0a67ebd05a7992dceb9cf29cf38ff"
   integrity sha512-qvonqMq6QpzNhwFAPQ8U1x1dm+3BkDVFl3WG2AYjkCxOKetuZjV+e+IB3lSa5SEYqP/eH4EynRBwNf+a0YRrvg==
@@ -274,10 +282,39 @@
     "@solana/wallet-adapter-base" "^0.9.17"
     "@solflare-wallet/sdk" "^1.0.11"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.62.1":
+"@solana/wallet-adapter-sollet@^0.11.11":
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-sollet/-/wallet-adapter-sollet-0.11.11.tgz#49c09f398a52cff0da33f55255653c430d60deaf"
+  integrity sha512-LgMVr5+jm101mxEUn+aZN2c5m1iO/n4LFpuKDehJHXWu7e8Y8SCLDdoGjTwEVv0d/2q9bxAyiwGWi1md+IpUnw==
+  dependencies:
+    "@project-serum/sol-wallet-adapter" "^0.2.6"
+    "@solana/wallet-adapter-base" "^0.9.17"
+
+"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0":
   version "1.62.1"
   resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.62.1.tgz#b0f98a033086016741fd6335548e92262964ac48"
   integrity sha512-ylkYM7u3dmTrBDQ1rkHF9kQTkKO+C7TqUvTJ0CfAFKUkQhDLsK2JUARdhkhERmJRqou0kSNmPd1x78IMg+FdTw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@noble/ed25519" "^1.7.0"
+    "@noble/hashes" "^1.1.2"
+    "@noble/secp256k1" "^1.6.3"
+    "@solana/buffer-layout" "^4.0.0"
+    bigint-buffer "^1.1.5"
+    bn.js "^5.0.0"
+    borsh "^0.7.0"
+    bs58 "^4.0.1"
+    buffer "6.0.1"
+    fast-stable-stringify "^1.0.0"
+    jayson "^3.4.4"
+    node-fetch "2"
+    rpc-websockets "^7.5.0"
+    superstruct "^0.14.2"
+
+"@solana/web3.js@^1.54.0":
+  version "1.63.1"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.63.1.tgz#88a19a17f5f4aada73ad70a94044c1067cab2b4d"
+  integrity sha512-wgEdGVK5FTS2zENxbcGSvKpGZ0jDS6BUdGu8Gn6ns0CzgJkK83u4ip3THSnBPEQ5i/jrqukg998BwV1H67+qiQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"

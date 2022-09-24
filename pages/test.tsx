@@ -20,7 +20,7 @@ const Test = () => {
     }
 
     return <Layout>
-        <button onClick={sendSol}>send 0.01 sol</button>
+        <button className='bg-zinc-900 text-zinc-300 p-4' onClick={sendSol}>send 0.01 sol</button>
     </Layout>
 }
 

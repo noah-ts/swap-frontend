@@ -6,12 +6,14 @@ import { LedgerWalletAdapter } from '@solana/wallet-adapter-ledger'
 import {
     WalletModalProvider
 } from '@solana/wallet-adapter-react-ui'
+import { clusterApiUrl } from '@solana/web3.js'
 
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css')
 
 export const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
-    const endpoint = 'https://lively-frequent-meadow.solana-mainnet.discover.quiknode.pro/1f1ef10280be82c5138b8e7b05808cb2707009f2/'
+    const endpoint = clusterApiUrl('mainnet-beta')
+    // const endpoint = 'https://lively-frequent-meadow.solana-mainnet.discover.quiknode.pro/1f1ef10280be82c5138b8e7b05808cb2707009f2/'
 
     const wallets = useMemo(
         () => [

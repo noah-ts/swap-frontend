@@ -18,12 +18,9 @@
     "@solana/wallet-adapter-solflare": "^0.6.16",
     "@solana/wallet-adapter-sollet": "^0.11.11",
     "@solana/web3.js": "^1.63.1",
-    "mobx": "^6.6.2",
-    "mobx-react-lite": "^3.4.0",
     "next": "^12.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.36.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "18.7.18",

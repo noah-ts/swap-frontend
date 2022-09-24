@@ -1,5 +1,6 @@
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
+import { Layout } from '../components/Layout'
 
 const Test = () => {
     const { connection } = useConnection()
@@ -18,9 +19,9 @@ const Test = () => {
         console.log(signature)
     }
 
-    return <div>
-        <button>send 0.01 sol</button>
-    </div>
+    return <Layout>
+        <button onClick={sendSol}>send 0.01 sol</button>
+    </Layout>
 }
 
 export default Test

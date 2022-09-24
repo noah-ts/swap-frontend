@@ -12,7 +12,7 @@ import { clusterApiUrl } from '@solana/web3.js'
 require('@solana/wallet-adapter-react-ui/styles.css')
 
 export const Wallet: FC<{ children: ReactNode }> = ({ children }) => {
-    const endpoint = clusterApiUrl('mainnet-beta')
+    const endpoint = clusterApiUrl('devnet')
     // const endpoint = 'https://lively-frequent-meadow.solana-mainnet.discover.quiknode.pro/1f1ef10280be82c5138b8e7b05808cb2707009f2/'
 
     const wallets = useMemo(

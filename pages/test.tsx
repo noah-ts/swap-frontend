@@ -4,10 +4,11 @@ import { Layout } from '../components/Layout'
 
 const Test = () => {
     const { connection } = useConnection()
-    const { publicKey, sendTransaction } = useWallet()
+    const { publicKey, sendTransaction, signTransaction } = useWallet()
 
     const sendSol = async () => {
         if (!publicKey) return
+        if (!signTransaction) return
 
         const txn = new Transaction()
         txn.add(SystemProgram.transfer({
@@ -16,7 +17,11 @@ const Test = () => {
             lamports: 0.01 * LAMPORTS_PER_SOL
         }))
         try {
-            const signature = await sendTransaction(txn, connection)
+            const { blockhash } = await connection.getLatestBlockhash()
+            txn.recentBlockhash = blockhash
+            txn.feePayer = publicKey
+            const signed = await signTransaction(txn)
+            const signature = await connection.sendRawTransaction(signed.serialize())
             console.log(signature)
         } catch (error) {
             console.error('Error sending 0.01 sol: ', error)

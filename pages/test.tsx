@@ -15,12 +15,16 @@ const Test = () => {
             toPubkey: new PublicKey('oEkvFgLAU1Zhr9WCtiFADzeEkyU6YhkASsKpUDLTfAD'),
             lamports: 0.01 * LAMPORTS_PER_SOL
         }))
-        const signature = await sendTransaction(txn, connection)
-        console.log(signature)
+        try {
+            const signature = await sendTransaction(txn, connection)
+            console.log(signature)
+        } catch (error) {
+            console.error('Error sending 0.01 sol: ', error)
+        }
     }
 
     return <Layout>
-        <button className='bg-zinc-900 text-zinc-300 p-4' onClick={sendSol}>send 0.01 sol</button>
+        <button className='bg-zinc-900 text-zinc-300 p-4 rounded' onClick={sendSol}>send 0.01 sol</button>
     </Layout>
 }
 

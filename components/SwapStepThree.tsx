@@ -100,6 +100,7 @@ export const SwapStepThree = observer(() => {
             offereeState: offereePdaState
         }))
         try {
+            console.log(txn.instructions.length)
             await wallet.sendTransaction(txn, connection)
             setLoadingStatus('finished')
         } catch (error) {

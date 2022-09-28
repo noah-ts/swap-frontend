@@ -477,5 +477,8 @@
       "name": "CloseEscrowEnumInvalid",
       "msg": "Close escrow type is invalid, has to be cancel or accept"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "FLjoHCAmjojgt7DUxid7WR9EyEj2Pysq9cMehRiM5vtp"
+  }
 }

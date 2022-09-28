@@ -4,7 +4,7 @@ import { PublicKey, Transaction } from '@solana/web3.js'
 import { getAssociatedTokenAddress } from '@solana/spl-token'
 import { swapStore } from '../stores/SwapStore'
 import { NftsGrid } from '../components/NftCard'
-import { addMintOffereeInstruction, initializeEscrowInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapInstruction } from '../services/instructions'
+import { addMintOffereeInstruction, initializeEscrowInstruction, initializeEscrowStateInstruction, initializeSwapStateInstruction, initializeUserStateInstruction, initiateSwapInstruction } from '../services/instructions'
 import { getAnchorProgram, programId } from '../services/utils'
 import { useState } from 'react'
 import { CheckIcon } from './icons/CheckIcon'
@@ -89,13 +89,26 @@ export const SwapStepThree = observer(() => {
             const [escrow, escrowBump] = await PublicKey.findProgramAddress(
                 [Buffer.from('escrow'), wallet.publicKey.toBuffer(), mint.toBuffer()], programId
             )
+            const escrowStatePda = await program.account.escrowState.fetchNullable(escrowState)
+            if (!escrowStatePda) {
+                txn.add(await initializeEscrowStateInstruction({
+                    connection,
+                    wallet: wallet as any,
+                    swapState,
+                    escrowState,
+                    escrowStateBump,
+                    mint,
+                    offeror: wallet.publicKey,
+                    offeree: offereePubKey
+                }))
+            }
+
             const ataOfferor = await getAssociatedTokenAddress(mint, wallet.publicKey)
             txn.add(await initializeEscrowInstruction({
                 connection,
                 wallet: wallet as any,
                 swapState,
                 escrowState,
-                escrowStateBump,
                 escrow,
                 escrowAtaBump: escrowBump,
                 mint,

@@ -94,14 +94,14 @@ class SwapStore {
         if (this.step === 'one') {
             this.nfts = this.nfts.map(n => {
                 if (n.tokenAddress === nft.tokenAddress) {
-                    return { ...n, isSelected: true }
+                    return { ...n, isSelected: !n.isSelected }
                 }
                 return n
             })
         } else if (this.step === 'two') {
             this.offerorNfts = this.offerorNfts.map(n => {
                 if (n.tokenAddress === nft.tokenAddress) {
-                    return { ...n, isSelected: true }
+                    return { ...n, isSelected: !n.isSelected }
                 }
                 return n
             })
@@ -119,7 +119,7 @@ class SwapStore {
             } else {
                 this.errorLoadingNfts = ''
                 this.loadedNftsWalletAddress = walletAddress
-                this.nfts = data.data.nfts.filter(nft => nft.imageUrl.includes('arweave.net') || nft.imageUrl.includes('nftstorage.link'))
+                this.nfts = data.data.nfts.filter(nft => nft.imageUrl.includes('https://arweave.net') || nft.imageUrl.includes('https://www.arweave.net') || nft.imageUrl.includes('https://nftstorage.link') || nft.imageUrl.includes('https://www.nftstorage.link'))
             }
         } catch (error) {
             this.errorLoadingNfts = 'Error loading NFTs, please try again.'

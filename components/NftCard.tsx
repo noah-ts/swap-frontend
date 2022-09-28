@@ -55,7 +55,7 @@ export const Nfts: FC<{ nfts: NftType[] }> = observer(({ nfts }) => {
 })
 
 export const NftsGrid: FC<{ nfts: NftType[] }> = observer(({ nfts }) => {
-    return <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+    return <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
         {nfts.map(nft => (
             <NftCard key={nft.tokenAddress.toString()} nft={nft} />
         ))}
@@ -75,13 +75,13 @@ export const NftCard: FC<{ nft: NftType }> = observer(({ nft }) => {
         onClick={handleClick}
     >
         <div>{nft.name}</div>
-        <div className='my-3 h-64 w-64 relative z-10'>
+        <div className='my-3 h-40 w-40 relative z-10'>
             <Image
                 alt={`NFT ${nft.name} image`}
                 src={nft.imageUrl}
                 layout='fill'
                 className='rounded'
-                quality={50}
+                quality={30}
             />
         </div>
     </div>

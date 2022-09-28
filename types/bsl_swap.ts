@@ -75,6 +75,57 @@ export type BslSwap = {
       ]
     },
     {
+      "name": "initializeEscrowState",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "offeree",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
       "name": "initializeEscrow",
       "accounts": [
         {
@@ -129,10 +180,6 @@ export type BslSwap = {
         }
       ],
       "args": [
-        {
-          "name": "stateBump",
-          "type": "u8"
-        },
         {
           "name": "ataBump",
           "type": "u8"
@@ -557,6 +604,57 @@ export const IDL: BslSwap = {
       ]
     },
     {
+      "name": "initializeEscrowState",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "offeree",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
       "name": "initializeEscrow",
       "accounts": [
         {
@@ -611,10 +709,6 @@ export const IDL: BslSwap = {
         }
       ],
       "args": [
-        {
-          "name": "stateBump",
-          "type": "u8"
-        },
         {
           "name": "ataBump",
           "type": "u8"

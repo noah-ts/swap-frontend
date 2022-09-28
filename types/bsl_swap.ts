@@ -83,13 +83,23 @@ export type BslSwap = {
           "isSigner": false
         },
         {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "escrow",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
+          "name": "mint",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "ataOfferor",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -120,13 +130,17 @@ export type BslSwap = {
       ],
       "args": [
         {
-          "name": "escrowBump",
+          "name": "stateBump",
+          "type": "u8"
+        },
+        {
+          "name": "ataBump",
           "type": "u8"
         }
       ]
     },
     {
-      "name": "initiateSwap",
+      "name": "addMintOfferee",
       "accounts": [
         {
           "name": "swapState",
@@ -134,18 +148,29 @@ export type BslSwap = {
           "isSigner": false
         },
         {
-          "name": "escrow",
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
-          "name": "mintAssetA",
+          "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initiateSwap",
+      "accounts": [
         {
-          "name": "mintAssetB",
-          "isMut": false,
+          "name": "swapState",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -169,7 +194,48 @@ export type BslSwap = {
           "isSigner": false
         },
         {
-          "name": "ataOfferorAssetA",
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeEscrow",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "offeree",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ata",
           "isMut": true,
           "isSigner": false
         },
@@ -190,11 +256,6 @@ export type BslSwap = {
           "isSigner": false
         },
         {
-          "name": "escrow",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "offerorState",
           "isMut": true,
           "isSigner": false
@@ -202,16 +263,6 @@ export type BslSwap = {
         {
           "name": "offereeState",
           "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
-          "isMut": false,
           "isSigner": false
         },
         {
@@ -223,31 +274,16 @@ export type BslSwap = {
           "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "ataOfferorAssetA",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     },
     {
-      "name": "acceptSwapOne",
+      "name": "acceptSwap",
       "accounts": [
         {
           "name": "swapState",
           "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "escrow",
-          "isMut": true,
           "isSigner": false
         },
         {
@@ -261,16 +297,6 @@ export type BslSwap = {
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "offeror",
           "isMut": false,
           "isSigner": false
@@ -279,22 +305,12 @@ export type BslSwap = {
           "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "ataOffereeAssetA",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     },
     {
-      "name": "acceptSwapTwo",
+      "name": "transferNftFromOffereeToOfferor",
       "accounts": [
         {
           "name": "swapState",
@@ -302,12 +318,7 @@ export type BslSwap = {
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
+          "name": "mint",
           "isMut": false,
           "isSigner": false
         },
@@ -322,12 +333,12 @@ export type BslSwap = {
           "isSigner": true
         },
         {
-          "name": "ataOfferorAssetB",
+          "name": "ataOfferor",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "ataOffereeAssetB",
+          "name": "ataOfferee",
           "isMut": true,
           "isSigner": false
         },
@@ -375,23 +386,47 @@ export type BslSwap = {
             "type": "publicKey"
           },
           {
-            "name": "mintAssetA",
-            "type": "publicKey"
+            "name": "swapStateBump",
+            "type": "u8"
           },
           {
-            "name": "mintAssetB",
-            "type": "publicKey"
+            "name": "mintsOfferor",
+            "type": {
+              "vec": "publicKey"
+            }
           },
+          {
+            "name": "mintsOfferee",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "escrowState",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
             "name": "escrow",
             "type": "publicKey"
           },
           {
-            "name": "swapStateBump",
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "ataOfferor",
+            "type": "publicKey"
+          },
+          {
+            "name": "stateBump",
             "type": "u8"
           },
           {
-            "name": "escrowBump",
+            "name": "ataBump",
             "type": "u8"
           }
         ]
@@ -415,6 +450,20 @@ export type BslSwap = {
           }
         ]
       }
+    },
+    {
+      "name": "CloseEscrowEnum",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Cancel"
+          },
+          {
+            "name": "Accept"
+          }
+        ]
+      }
     }
   ],
   "errors": [
@@ -422,6 +471,11 @@ export type BslSwap = {
       "code": 6000,
       "name": "UserEnumInvalid",
       "msg": "User is invalid, has to be offeror or offeree"
+    },
+    {
+      "code": 6001,
+      "name": "CloseEscrowEnumInvalid",
+      "msg": "Close escrow type is invalid, has to be cancel or accept"
     }
   ]
 };
@@ -511,13 +565,23 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "escrow",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
+          "name": "mint",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "ataOfferor",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -548,13 +612,17 @@ export const IDL: BslSwap = {
       ],
       "args": [
         {
-          "name": "escrowBump",
+          "name": "stateBump",
+          "type": "u8"
+        },
+        {
+          "name": "ataBump",
           "type": "u8"
         }
       ]
     },
     {
-      "name": "initiateSwap",
+      "name": "addMintOfferee",
       "accounts": [
         {
           "name": "swapState",
@@ -562,18 +630,29 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
-          "name": "escrow",
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
-          "name": "mintAssetA",
+          "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initiateSwap",
+      "accounts": [
         {
-          "name": "mintAssetB",
-          "isMut": false,
+          "name": "swapState",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -597,7 +676,48 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
-          "name": "ataOfferorAssetA",
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeEscrow",
+      "accounts": [
+        {
+          "name": "swapState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "escrowState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offeror",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "offeree",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ata",
           "isMut": true,
           "isSigner": false
         },
@@ -618,11 +738,6 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
-          "name": "escrow",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "offerorState",
           "isMut": true,
           "isSigner": false
@@ -630,16 +745,6 @@ export const IDL: BslSwap = {
         {
           "name": "offereeState",
           "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
-          "isMut": false,
           "isSigner": false
         },
         {
@@ -651,31 +756,16 @@ export const IDL: BslSwap = {
           "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "ataOfferorAssetA",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     },
     {
-      "name": "acceptSwapOne",
+      "name": "acceptSwap",
       "accounts": [
         {
           "name": "swapState",
           "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "escrow",
-          "isMut": true,
           "isSigner": false
         },
         {
@@ -689,16 +779,6 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "offeror",
           "isMut": false,
           "isSigner": false
@@ -707,22 +787,12 @@ export const IDL: BslSwap = {
           "name": "offeree",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "ataOffereeAssetA",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     },
     {
-      "name": "acceptSwapTwo",
+      "name": "transferNftFromOffereeToOfferor",
       "accounts": [
         {
           "name": "swapState",
@@ -730,12 +800,7 @@ export const IDL: BslSwap = {
           "isSigner": false
         },
         {
-          "name": "mintAssetA",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mintAssetB",
+          "name": "mint",
           "isMut": false,
           "isSigner": false
         },
@@ -750,12 +815,12 @@ export const IDL: BslSwap = {
           "isSigner": true
         },
         {
-          "name": "ataOfferorAssetB",
+          "name": "ataOfferor",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "ataOffereeAssetB",
+          "name": "ataOfferee",
           "isMut": true,
           "isSigner": false
         },
@@ -803,23 +868,47 @@ export const IDL: BslSwap = {
             "type": "publicKey"
           },
           {
-            "name": "mintAssetA",
-            "type": "publicKey"
+            "name": "swapStateBump",
+            "type": "u8"
           },
           {
-            "name": "mintAssetB",
-            "type": "publicKey"
+            "name": "mintsOfferor",
+            "type": {
+              "vec": "publicKey"
+            }
           },
+          {
+            "name": "mintsOfferee",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "escrowState",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
             "name": "escrow",
             "type": "publicKey"
           },
           {
-            "name": "swapStateBump",
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "ataOfferor",
+            "type": "publicKey"
+          },
+          {
+            "name": "stateBump",
             "type": "u8"
           },
           {
-            "name": "escrowBump",
+            "name": "ataBump",
             "type": "u8"
           }
         ]
@@ -843,6 +932,20 @@ export const IDL: BslSwap = {
           }
         ]
       }
+    },
+    {
+      "name": "CloseEscrowEnum",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Cancel"
+          },
+          {
+            "name": "Accept"
+          }
+        ]
+      }
     }
   ],
   "errors": [
@@ -850,6 +953,11 @@ export const IDL: BslSwap = {
       "code": 6000,
       "name": "UserEnumInvalid",
       "msg": "User is invalid, has to be offeror or offeree"
+    },
+    {
+      "code": 6001,
+      "name": "CloseEscrowEnumInvalid",
+      "msg": "Close escrow type is invalid, has to be cancel or accept"
     }
   ]
 };

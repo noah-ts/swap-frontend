@@ -5,6 +5,7 @@ export type NftType = {
     name: string
     tokenAddress: string
     traits?: Trait[]
+    isSelected?: boolean
 }
 
 type Trait = {

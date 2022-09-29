@@ -94,12 +94,10 @@ export const SwapStepThree = observer(() => {
                 txn.add(await initializeEscrowStateInstruction({
                     connection,
                     wallet: wallet as any,
-                    swapState,
                     escrowState,
                     escrowStateBump,
                     mint,
-                    offeror: wallet.publicKey,
-                    offeree: offereePubKey
+                    offeror: wallet.publicKey
                 }))
             }
 

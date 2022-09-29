@@ -46,18 +46,19 @@ export const initializeSwapStateInstruction = ({
         .instruction()
 }
 
-type InitializeEscrowStateInstructionParams = ProviderParams & CommonParams & {
+type InitializeEscrowStateInstructionParams = ProviderParams & {
     escrowState: PublicKey
     escrowStateBump: number
     mint: PublicKey
+    offeror: PublicKey
 }
 
 export const initializeEscrowStateInstruction = ({
-    connection, wallet, escrowState, escrowStateBump, swapState, mint, offeror, offeree
+    connection, wallet, escrowState, escrowStateBump, mint, offeror
 }: InitializeEscrowStateInstructionParams) => {
     const program = getAnchorProgram(connection, wallet)
     return program.methods.initializeEscrowState(escrowStateBump)
-        .accounts({ swapState, escrowState, mint, offeror, offeree, systemProgram: SystemProgram.programId, tokenProgram: TOKEN_PROGRAM_ID, rent: SYSVAR_RENT_PUBKEY })
+        .accounts({ escrowState, mint, offeror, systemProgram: SystemProgram.programId, rent: SYSVAR_RENT_PUBKEY })
         .instruction()
 }
 

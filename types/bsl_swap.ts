@@ -78,11 +78,6 @@ export type BslSwap = {
       "name": "initializeEscrowState",
       "accounts": [
         {
-          "name": "swapState",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "escrowState",
           "isMut": true,
           "isSigner": false
@@ -98,17 +93,7 @@ export type BslSwap = {
           "isSigner": true
         },
         {
-          "name": "offeree",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
         },
@@ -299,7 +284,7 @@ export type BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -330,7 +315,7 @@ export type BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -607,11 +592,6 @@ export const IDL: BslSwap = {
       "name": "initializeEscrowState",
       "accounts": [
         {
-          "name": "swapState",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "escrowState",
           "isMut": true,
           "isSigner": false
@@ -627,17 +607,7 @@ export const IDL: BslSwap = {
           "isSigner": true
         },
         {
-          "name": "offeree",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
         },
@@ -828,7 +798,7 @@ export const IDL: BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -859,7 +829,7 @@ export const IDL: BslSwap = {
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {

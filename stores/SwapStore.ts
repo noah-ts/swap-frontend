@@ -90,10 +90,12 @@ class SwapStore {
     }
 
     setSelectedNft = (nft: NftType) => {
-        if ((this.selectedNfts.length + this.offerorSelectedNfts.length) >= 6) return
         if (this.step === 'one') {
             this.nfts = this.nfts.map(n => {
                 if (n.tokenAddress === nft.tokenAddress) {
+                    if ((this.selectedNfts.length + this.offerorSelectedNfts.length) >= 6) {
+                        return { ...n, isSelected: false }
+                    }
                     return { ...n, isSelected: !n.isSelected }
                 }
                 return n
@@ -101,6 +103,9 @@ class SwapStore {
         } else if (this.step === 'two') {
             this.offerorNfts = this.offerorNfts.map(n => {
                 if (n.tokenAddress === nft.tokenAddress) {
+                    if ((this.selectedNfts.length + this.offerorSelectedNfts.length) >= 6) {
+                        return { ...n, isSelected: false }
+                    }
                     return { ...n, isSelected: !n.isSelected }
                 }
                 return n

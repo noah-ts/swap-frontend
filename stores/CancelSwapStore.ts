@@ -11,6 +11,8 @@ class CancelSwapStore {
     offerorNfts: NftType[] = []
     offereeNfts: NftType[] = []
 
+    isLoadMintsLoading: boolean = false
+
     constructor() {
         makeObservable(this, {
             swapState: observable,
@@ -19,6 +21,7 @@ class CancelSwapStore {
 
             offerorNfts: observable,
             offereeNfts: observable,
+            isLoadMintsLoading: observable,
             loadMintsOfferor: action,
             loadMintsOfferee: action
         })
@@ -36,13 +39,15 @@ class CancelSwapStore {
         }
     }
 
-    loadMints = async (currentUserAddress: string) => {
-        if (!this.swapState) return
-        if (this.swapState.offeror.toString() === currentUserAddress) {
-            await this.loadMintsOfferor()
-        } else {
-            await this.loadMintsOfferee()
-        }
+    loadMints = async () => {
+        if (!this.swapState || this.isLoadMintsLoading) return
+        runInAction(() => {
+            this.isLoadMintsLoading = true
+        })
+        await Promise.all([this.loadMintsOfferor(), this.loadMintsOfferee()])
+        runInAction(() => {
+            this.isLoadMintsLoading = false
+        })
     }
 
     loadMintsOfferor = async () => {

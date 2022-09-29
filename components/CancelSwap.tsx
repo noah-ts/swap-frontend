@@ -37,13 +37,13 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
 
     const loadMints = () => {
         if (!wallet.publicKey) return
-        return cancelSwapStore.loadMints(wallet.publicKey.toString())
+        return cancelSwapStore.loadMints()
     }
 
     useEffect(() => {
         loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wallet.publicKey])
+    }, [])
 
     const [loadingStatus, setLoadingStatus] = useState<LoadingStatusType>('idle')
 
@@ -142,7 +142,7 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
 
                 const program = getAnchorProgram(connection, wallet as any)
                 const [escrowState] = await PublicKey.findProgramAddress(
-                    [Buffer.from('escrow_state'), wallet.publicKey.toBuffer(), mint.toBuffer()], programId
+                    [Buffer.from('escrow_state'), offerorPubKey.toBuffer(), mint.toBuffer()], programId
                 )
                 const state = await program.account.escrowState.fetch(escrowState)
                 txn.add(await closeEscrowInstruction({
@@ -160,7 +160,6 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
 
             for (const mint of cancelSwapStore.swapState.mintsOfferee) {
                 const ataOfferor = await getAssociatedTokenAddress(mint, offerorPubKey)
-                const ataOfferee = await getAssociatedTokenAddress(mint, wallet.publicKey)
                 try {
                     await getAccount(connection, ataOfferor, 'finalized')
                 } catch (error) {
@@ -168,6 +167,20 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
                         txn.add(createAssociatedTokenAccountInstruction(
                             wallet.publicKey,
                             ataOfferor,
+                            offerorPubKey,
+                            mint
+                        ))
+                    }
+                }
+
+                const ataOfferee = await getAssociatedTokenAddress(mint, wallet.publicKey)
+                try {
+                    await getAccount(connection, ataOfferee, 'finalized')
+                } catch (error) {
+                    if (error instanceof TokenAccountNotFoundError || error instanceof TokenInvalidAccountOwnerError) {
+                        txn.add(createAssociatedTokenAccountInstruction(
+                            wallet.publicKey,
+                            ataOfferee,
                             offerorPubKey,
                             mint
                         ))
@@ -198,6 +211,7 @@ export const CancelSwap: FC<{ type: 'cancel' | 'accept' }> = observer(({ type })
             await wallet.sendTransaction(txn, connection)
             setLoadingStatus('finished')
         } catch (error) {
+            console.error(error)
             setLoadingStatus('failed')
         }
     }

@@ -78,11 +78,6 @@
       "name": "initializeEscrowState",
       "accounts": [
         {
-          "name": "swapState",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
           "name": "escrowState",
           "isMut": true,
           "isSigner": false
@@ -98,17 +93,7 @@
           "isSigner": true
         },
         {
-          "name": "offeree",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
         },
@@ -299,7 +284,7 @@
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -330,7 +315,7 @@
       "accounts": [
         {
           "name": "swapState",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -526,6 +511,6 @@
     }
   ],
   "metadata": {
-    "address": "FLjoHCAmjojgt7DUxid7WR9EyEj2Pysq9cMehRiM5vtp"
+    "address": "4yMbW3LPK1ihgxNPHiyAkNiZKA8iWfmckVRZkA39PzPK"
   }
 }

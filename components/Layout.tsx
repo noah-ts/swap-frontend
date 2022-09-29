@@ -51,7 +51,7 @@ const Menu: FC<{ isOpen: boolean, close: () => void }> = ({ isOpen, close }) => 
         <div className='lg:hidden flex justify-end pt-6 pr-4'>
             <CloseIcon close={close} />
         </div>
-        <div className='text-center text-5xl pt-6 font-extralight'>Ulixx</div>
+        <div className='text-center text-5xl pt-6 font-extralight'></div>
         <ul className='pl-10 pt-20 flex flex-col gap-10'>
             <li className='text-2xl'>
                 <Link href='/swap'>

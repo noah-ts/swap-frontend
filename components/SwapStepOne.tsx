@@ -48,8 +48,8 @@ export const SwapStepOne = observer(() => {
                 </button>
             </form>
             <div className='bg-yellow-100 rounded p-4 mt-4'>
-                <div>Please double check the nft you swap for, make sure it is not a scam.</div>
-                <div>Fee is 0.01 SOL.</div>
+                <div>Swap up to 6 NFTs</div>
+                <div>Fee is 0.01 SOL</div>
             </div>
             {swapStore.errorLoadingNfts && (
                 <div className='text-red-500'>{swapStore.errorLoadingNfts}</div>
